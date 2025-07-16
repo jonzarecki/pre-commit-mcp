@@ -1,5 +1,7 @@
 # Fast Pre-commit MCP
 
+[![CI](https://github.com/your-org/pre-commit-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/pre-commit-mcp/actions/workflows/ci.yml)
+
 This repository contains a demonstration MCP server built with [FastMCP](https://pypi.org/project/fastmcp/). The server runs `pre-commit` once when it starts and then reruns it whenever files change. Output is streamed to connected MCP clients and can also be refreshed on demand using a tool.
 
 ## Usage
@@ -32,5 +34,7 @@ The latest pre-commit output is also available as a resource named `precommit-ou
    - Initialize a git repository with a `.pre-commit-config.yaml`.
    - Install the hooks with `pre-commit install`.
    - Run the server and perform typical MCP interactions, ensuring log messages from pre‑commit appear in the conversation and the resource reflects the latest run.
+
+GitHub Actions runs the lint and compile checks in `.github/workflows/ci.yml` on every push and pull request.
 
 
