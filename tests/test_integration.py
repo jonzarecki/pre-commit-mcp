@@ -16,9 +16,8 @@ async def test_server_integration(tmp_path, monkeypatch):
     script.write_text("#!/usr/bin/env python3\nprint('integrated')\n")
     script.chmod(0o755)
     monkeypatch.setenv("PATH", f"{tmp_path}:{os.environ['PATH']}")
-    # Patch server helpers to avoid subprocess usage
-    server._changed_files = lambda: []
 
+    # Patch server helpers to avoid subprocess usage
     async def _noop_watch():
         return
 

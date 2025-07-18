@@ -3,6 +3,7 @@
 import anyio
 from contextlib import asynccontextmanager
 from typing import AsyncIterator, Iterable
+from watchfiles import awatch
 
 from fastmcp import FastMCP
 from fastmcp.server.context import Context
@@ -11,26 +12,6 @@ import fastmcp
 from .tools import run_precommit
 
 LAST_OUTPUT: list[str] = []
-
-
-async def _changed_files() -> list[str]:
-    """Return a list of files changed in the working tree."""
-    process = await anyio.open_process(
-        [
-            "git",
-            "status",
-            "--porcelain",
-        ],
-        stdout=anyio.subprocess.PIPE,
-    )
-    assert process.stdout
-    raw = await process.stdout.read()
-    await process.wait()
-    files = []
-    for line in raw.decode().splitlines():
-        if line:
-            files.append(line[3:])
-    return files
 
 
 async def _run_precommit_stream(
@@ -46,12 +27,11 @@ async def _run_precommit_stream(
 
 
 async def _watch_changes() -> None:
-    """Continuously run pre-commit on modified files."""
-    while True:
-        files = await _changed_files()
+    """Watch for file changes and run pre-commit."""
+    async for changes in awatch(".", stop_event=None):
+        files = [path for _, path in changes]
         if files:
             await _run_precommit_stream(files=files)
-        await anyio.sleep(2)
 
 
 @asynccontextmanager
