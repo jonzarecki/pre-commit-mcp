@@ -15,11 +15,14 @@ LAST_OUTPUT: list[str] = []
 
 async def _changed_files() -> list[str]:
     """Return a list of files changed in the working tree."""
-    process = await anyio.open_process([
-        "git",
-        "status",
-        "--porcelain",
-    ], stdout=anyio.subprocess.PIPE)
+    process = await anyio.open_process(
+        [
+            "git",
+            "status",
+            "--porcelain",
+        ],
+        stdout=anyio.subprocess.PIPE,
+    )
     assert process.stdout
     raw = await process.stdout.read()
     await process.wait()
@@ -92,4 +95,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -36,5 +36,3 @@ The latest pre-commit output is also available as a resource named `precommit-ou
    - Run the server and perform typical MCP interactions, ensuring log messages from pre‑commit appear in the conversation and the resource reflects the latest run.
 
 GitHub Actions runs the lint and compile checks in `.github/workflows/ci.yml` on every push and pull request.
-
-
