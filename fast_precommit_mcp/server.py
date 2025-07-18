@@ -1,12 +1,12 @@
 """FastMCP server streaming pre-commit output."""
 
-from __future__ import annotations
-
 import anyio
 from contextlib import asynccontextmanager
 from typing import AsyncIterator, Iterable
 
-from fastmcp import Context, FastMCP
+from fastmcp import FastMCP
+from fastmcp.server.context import Context
+import fastmcp
 
 from .tools import run_precommit
 
@@ -77,13 +77,13 @@ mcp = FastMCP(
 )
 
 
-@mcp.resource("precommit-output", description="Latest pre-commit output")
+@mcp.resource("resource://precommit-output", description="Latest pre-commit output")
 async def precommit_output_resource() -> str:
     return _get_output()
 
 
 @mcp.tool()
-async def run_precommit_tool(ctx: Context, *files: str) -> str:
+async def run_precommit_tool(ctx: Context, files: list[str] | None = None) -> str:
     """Run pre-commit optionally on specific files."""
     await _run_precommit_stream(ctx, files=files or None)
     return _get_output()
