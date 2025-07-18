@@ -12,6 +12,9 @@ Run the server:
 python -m fast_precommit_mcp.server
 ```
 
+`watchfiles` is installed automatically so the server can monitor the repository
+for changes without any additional configuration.
+
 Available tools:
 
 - `run_precommit_tool` – Executes `pre-commit run` (optionally on specific files) and streams log lines back to the client.
