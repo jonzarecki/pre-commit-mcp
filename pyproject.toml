@@ -13,6 +13,14 @@ dependencies = ["fastmcp", "watchfiles"]
 test = [
     "pytest",
     "pytest-asyncio",
+    "pytest-cov",
+]
+
+dev = [
+    "pre-commit",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
 ]
 
 [tool.hatch.build.targets.wheel]
