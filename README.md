@@ -23,7 +23,7 @@ Or clone the repository and install in editable mode for development:
 ```bash
 git clone https://github.com/jonzarecki/pre-commit-mcp.git
 cd pre-commit-mcp
-pip install -e .
+pip install -e .[dev]
 ```
 
 ## Usage

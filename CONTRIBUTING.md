@@ -11,7 +11,7 @@ Thanks for wanting to contribute! Follow these guidelines to set up your environ
    ```
 2. Install the project with development dependencies:
    ```bash
-   pip install -e .[dev,test]
+pip install -e .[dev]
    ```
 3. Install pre-commit hooks:
    ```bash
